@@ -1,26 +1,17 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const PORT = 5000;
 
-app.get("/api/calc/:operation", (req, res) => {
-  const { operation } = req.params;
+app.get('/api/calc/:op', (req, res) => {
+  const { op } = req.params;
   const { num1, num2 } = req.query;
+  const n1 = Number(num1), n2 = Number(num2);
 
-  // Validate input
-  if (num1 === undefined || num2 === undefined) {
-    return res.status(400).json({ error: "Missing num1 or num2 parameter" });
-  }
+  if (isNaN(n1) || isNaN(n2)) return res.status(400).json({ error: 'Invalid params' });
 
-  const n1 = parseFloat(num1);
-  const n2 = parseFloat(num2);
-
-  if (isNaN(n1) || isNaN(n2)) {
-    return res.status(400).json({ error: "num1 and num2 must be numbers" });
-  }
 
   let result;
 
-  switch (operation) {
+  switch (op) {
     case "add":
       result = n1 + n2;
       break;
@@ -36,12 +27,15 @@ app.get("/api/calc/:operation", (req, res) => {
       result = n1 / n2;
       break;
     default:
-      return res.status(400).json({ error: "Invalid operation" });
+      return res.status(400).json({ error: "Invalid op" });
   }
 
-  res.json({ operation, num1: n1, num2: n2, result });
+  res.json({ op, num1: n1, num2: n2, result });
 });
 
-app.listen(PORT, () =>
-  console.log(`Server running on http://localhost:${PORT}`)
-);
+app.listen(3000);
+
+
+
+
+

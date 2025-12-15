@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HTML Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <form onsubmit="return validation()">
+    email: <input id="email" name="email"><br><br>
+    phone: <input id="phone" name="phone"><br><br>
+    rollno: <input id="rollno" name="rollno"><br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    function validation(){
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const rollno = document.getElementById("rollno").value;
+;
+
+      if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        alert("Invalid email format.");
+        return false;
+      }
+
+      if (!/^\d{10}$/.test(phone)) {
+        alert("Phone number must be 10 digits.");
+        return false;
+      }
+
+      if (!/^[A-Z]{2}\d{4}$/.test(rollno)) {
+        alert("Roll number must be in the format: 2 uppercase letters followed by 4 digits.");
+        return false;
+      }
+      alert("All inputs are valid!");
+      return true;
+
+    }
+  </script>
+</body>
+</html>
